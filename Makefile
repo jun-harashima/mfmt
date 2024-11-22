@@ -19,3 +19,9 @@ install-mfmt:
 
 pytest:
 	uv run pytest tests
+
+ruff-check:
+	uvx ruff check
+
+ruff-fmt:
+	uvx ruff fmt

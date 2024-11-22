@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Kytea():
+class Kytea:
     def __init__(self) -> None:
         pass
 
