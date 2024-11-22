@@ -2,11 +2,25 @@ from pathlib import Path
 
 import click
 from mfmt.kytea import Kytea
+from mfmt.mecab import Mecab
 
 
 @click.group()
 def main():
     pass
+
+
+@main.command()
+@click.argument("input-txt", type=click.Path(path_type=Path))
+def m2k(input_txt: Path) -> None:
+    with open(input_txt) as file:
+        lines = file.readlines()
+
+    mecab = Mecab()
+    lines = mecab.to_kytea(lines)
+
+    for line in lines:
+        print(line)
 
 
 @main.command()
