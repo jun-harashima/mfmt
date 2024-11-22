@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Mecab():
+class Mecab:
     def __init__(self) -> None:
         pass
 

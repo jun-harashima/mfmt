@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import click
+
 from mfmt.kytea import Kytea
 from mfmt.mecab import Mecab
 
