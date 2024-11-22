@@ -16,3 +16,6 @@ uv-build:
 
 install-mfmt:
 	uv pip install .
+
+pytest:
+	uv run pytest
