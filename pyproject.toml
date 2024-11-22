@@ -2,47 +2,8 @@
 name = "mfmt"
 version = "0.1.0"
 description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10.12"
 dependencies = [
     "click>=8.1.7",
 ]
-readme = "README.md"
-requires-python = ">= 3.10"
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.rye]
-managed = true
-dev-dependencies = [
-    "mypy>=1.13.0",
-    "pytest>=8.3.3",
-]
-
-[tool.hatch.metadata]
-allow-direct-references = true
-
-[tool.hatch.build.targets.wheel]
-packages = ["src/work"]
-
-[tool.ruff]
-line-length = 88
-lint.select = [
-    "F", # pyflakes
-    "E", # pycodestyle
-    "W", # pycodestyle warnings
-    "I", # isort
-    "D", # pydocstyle
-]
-lint.ignore = [
-    "D100", # Missing docstring in public module
-    "D101", # Missing docstring in public class
-    "D103", # Missing docstring in public function
-    "D104", # Missing docstring in public package
-    "D203", # 1 blank line required before class docstring
-]
-
-[tool.mypy]
-files = ["scripts", "tests"]
-strict = true
-ignore_missing_imports = true
