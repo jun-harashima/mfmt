@@ -18,4 +18,4 @@ install-mfmt:
 	uv pip install .
 
 pytest:
-	uv run pytest
+	uv run pytest tests
