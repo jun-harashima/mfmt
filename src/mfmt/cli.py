@@ -7,7 +7,7 @@ from mfmt.mecab import Mecab
 
 
 @click.group()
-def main():
+def main() -> None:
     pass
 
 
