@@ -44,3 +44,7 @@ lint.ignore = [
     "D107", # Missing docstring in `__init__`
     "D203", # 1 blank line required before class docstring
 ]
+
+[tool.mypy]
+files = ["src", "tests"]
+ignore_missing_imports = true

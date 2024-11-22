@@ -1,11 +1,8 @@
-from typing import List
-
-
 class Kytea:
     def __init__(self) -> None:
         pass
 
-    def to_mecab(self, input_lines: List[str]) -> List[str]:
+    def to_mecab(self, input_lines: list[str]) -> list[str]:
         output_lines = []
         for input_line in input_lines:
             for word in input_line.split():

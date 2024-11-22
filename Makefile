@@ -25,3 +25,6 @@ ruff-check:
 
 ruff-fmt:
 	uvx ruff fmt
+
+mypy:
+	uvx mypy

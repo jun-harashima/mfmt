@@ -1,13 +1,10 @@
-from typing import List
-
-
 class Mecab:
     def __init__(self) -> None:
         pass
 
-    def to_kytea(self, input_lines: List[str]) -> List[str]:
+    def to_kytea(self, input_lines: list[str]) -> list[str]:
         output_lines = []
-        output_words = []
+        output_words: list[str] = []
         for input_line in input_lines:
             input_line = input_line.rstrip("\n")
 
