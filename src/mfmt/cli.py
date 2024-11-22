@@ -2,6 +2,7 @@ from pathlib import Path
 
 import click
 
+from mfmt.juman import Juman
 from mfmt.kytea import Kytea
 from mfmt.mecab import Mecab
 
@@ -19,6 +20,19 @@ def m2k(input_txt: Path) -> None:
 
     mecab = Mecab()
     lines = mecab.to_kytea(lines)
+
+    for line in lines:
+        print(line)
+
+
+@main.command()
+@click.argument("input-txt", type=click.Path(path_type=Path))
+def j2m(input_txt: Path) -> None:
+    with open(input_txt) as file:
+        lines = file.readlines()
+
+    juman = Juman()
+    lines = juman.to_mecab(lines)
 
     for line in lines:
         print(line)
