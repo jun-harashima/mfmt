@@ -10,3 +10,9 @@ docker-build:
 
 docker-run:
 	docker run -it --rm -v $(PWD):/work --name $(CONTAINER_NAME) $(IMAGE_NAME)
+
+uv-build:
+	uv build
+
+install-mfmt:
+	uv pip install .
