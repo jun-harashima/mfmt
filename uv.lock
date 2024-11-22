@@ -1,5 +1,5 @@
 version = 1
-requires-python = ">=3.10.12"
+requires-python = ">=3.13"
 
 [[package]]
 name = "click"
@@ -25,7 +25,7 @@ wheels = [
 [[package]]
 name = "mfmt"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "click" },
 ]
