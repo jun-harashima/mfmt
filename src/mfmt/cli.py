@@ -39,7 +39,7 @@ def m2k(input_txt: Path) -> None:
 @click.argument("input-txt", type=click.Path(path_type=Path))
 def j2m(input_txt: Path) -> None:
     juman = Juman()
-    convert(input_txt, juman.to_mecab)
+    juman.to_mecab(input_txt)
 
 @main.command()
 @click.argument("input-txt", type=click.Path(path_type=Path))
