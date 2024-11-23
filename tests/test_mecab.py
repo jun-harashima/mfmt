@@ -35,7 +35,7 @@ def test__to_juman(mecab, lines) -> None:
 
 def test__to_kytea(mecab, lines) -> None:
     actual = mecab._to_kytea(lines)
-    expected = "今日/名詞/きょう は/助詞/は 雨/名詞/あめ です/助動詞/です 。/記号/。"
+    expected = ["今日/名詞/きょう は/助詞/は 雨/名詞/あめ です/助動詞/です 。/記号/。"]
     assert actual == expected
 
 
