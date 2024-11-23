@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from jaconv import kata2hira
 
 
@@ -16,19 +18,26 @@ class Mecab:
                 output_lines.append(output_line)
         return output_lines
 
-    def to_kytea(self, input_lines: list[str]) -> list[str]:
-        output_lines = []
-        output_words: list[str] = []
-        for input_line in input_lines:
-            if input_line == "EOS":
-                output_line = " ".join(output_words)
-                output_lines.append(output_line)
-                output_words = []
-            else:
-                midashi, hinshi1, hinshi2, yomi = self._split(input_line)
-                output_word = f"{midashi}/{hinshi1}/{yomi}"
-                output_words.append(output_word)
-        return output_lines
+    def to_kytea(self, input_txt: Path) -> None:
+        with open(input_txt) as file:
+            lines: list[str] = []
+            for line in file:
+                line = line.rstrip("\n")
+                if line == "EOS":
+                    line = self._to_kytea(lines)
+                    print(line)
+                    lines = []
+                else:
+                    lines.append(line)
+
+    def _to_kytea(self, lines: list[str]) -> str:
+        words = []
+        for line in lines:
+            midashi, hinshi1, _, yomi = self._split(line)
+            word = f"{midashi}/{hinshi1}/{yomi}"
+            words.append(word)
+        line = " ".join(words)
+        return line
 
     def _split(self, line: str) -> tuple[str, str, str, str]:
         midashi, rest = line.split("\t")
