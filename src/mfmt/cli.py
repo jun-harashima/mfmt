@@ -45,7 +45,7 @@ def j2m(input_txt: Path) -> None:
 @click.argument("input-txt", type=click.Path(path_type=Path))
 def j2k(input_txt: Path) -> None:
     juman = Juman()
-    convert(input_txt, juman.to_kytea)
+    juman.to_kytea(input_txt)
 
 
 @main.command()
