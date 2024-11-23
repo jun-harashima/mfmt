@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Callable
 
 import click
 
@@ -11,14 +10,6 @@ from mfmt.mecab import Mecab
 @click.group()
 def main() -> None:
     pass
-
-
-def convert(input_txt: Path, function: Callable[[list[str]], list[str]]) -> None:
-    with open(input_txt) as file:
-        lines = file.read().splitlines()
-    lines = function(lines)
-    for line in lines:
-        print(line)
 
 
 @main.command()
@@ -52,7 +43,7 @@ def j2k(input_txt: Path) -> None:
 @click.argument("input-txt", type=click.Path(path_type=Path))
 def k2m(input_txt: Path) -> None:
     kytea = Kytea()
-    convert(input_txt, kytea.to_mecab)
+    kytea.to_mecab(input_txt)
 
 
 if __name__ == "__main__":
