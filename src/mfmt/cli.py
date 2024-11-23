@@ -25,7 +25,7 @@ def convert(input_txt: Path, function: Callable[[list[str]], list[str]]) -> None
 @click.argument("input-txt", type=click.Path(path_type=Path))
 def m2k(input_txt: Path) -> None:
     mecab = Mecab()
-    convert(input_txt, mecab.to_kytea)
+    mecab.to_kytea(input_txt)
 
 
 @main.command()
