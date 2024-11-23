@@ -31,21 +31,28 @@ class Juman:
             output_lines.append(line)
         return output_lines
 
-    def to_kytea(self, input_lines: list[str]) -> list[str]:
-        output_lines = []
-        output_words: list[str] = []
-        for line in input_lines:
-            if line == "EOS":
-                output_line = " ".join(output_words)
-                output_lines.append(output_line)
-                output_words = []
-            elif line.startswith("@"):
-                pass
-            else:
-                midashi, hinshi1, _, yomi,_ = self._split(line)
-                output_word = f"{midashi}/{hinshi1}/{yomi}"
-                output_words.append(output_word)
-        return output_lines
+    def to_kytea(self, input_txt: Path) -> None:
+        with open(input_txt) as file:
+            lines: list[str] = []
+            for line in file:
+                line = line.rstrip("\n")
+                if line == "EOS":
+                    output_line = self._to_kytea(lines)
+                    print(output_line)
+                    lines = []
+                elif line.startswith("@"):
+                    pass
+                else:
+                    lines.append(line)
+
+    def _to_kytea(self, lines: list[str]) -> str:
+        words = []
+        for line in lines:
+            midashi, hinshi1, _, yomi,_ = self._split(line)
+            word = f"{midashi}/{hinshi1}/{yomi}"
+            words.append(word)
+        output_line = " ".join(words)
+        return output_line
 
 
     def _split(self, line: str) -> tuple[str, str, str, str, str]:

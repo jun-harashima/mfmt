@@ -32,17 +32,10 @@ def test__to_mecab(juman, lines) -> None:
     assert actual == expected
 
 
-def test_to_kytea() -> None:
-    with open("tests/juman/input.txt") as file:
-        input_lines = file.read().splitlines()
-
-    juman = Juman()
-    actual_lines = juman.to_kytea(input_lines)
-
-    with open("tests/juman/output_kytea.txt") as file:
-        expected_lines = file.read().splitlines()
-
-    assert actual_lines == expected_lines
+def test__to_kytea(juman, lines) -> None:
+    actual = juman._to_kytea(lines)
+    expected = "今日/名詞/きょう は/助詞/は 雨/名詞/あめ です/判定詞/です 。/特殊/。"
+    assert actual == expected
 
 
 def test__split() -> None:
