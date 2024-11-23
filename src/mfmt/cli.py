@@ -23,16 +23,16 @@ def convert(input_txt: Path, function: Callable[[list[str]], list[str]]) -> None
 
 @main.command()
 @click.argument("input-txt", type=click.Path(path_type=Path))
-def m2k(input_txt: Path) -> None:
+def m2j(input_txt: Path) -> None:
     mecab = Mecab()
-    mecab.to_kytea(input_txt)
+    mecab.to_juman(input_txt)
 
 
 @main.command()
 @click.argument("input-txt", type=click.Path(path_type=Path))
-def m2j(input_txt: Path) -> None:
+def m2k(input_txt: Path) -> None:
     mecab = Mecab()
-    convert(input_txt, mecab.to_juman)
+    mecab.to_kytea(input_txt)
 
 
 @main.command()
