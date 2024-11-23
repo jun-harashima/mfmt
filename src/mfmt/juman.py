@@ -8,9 +8,8 @@ class Juman:
     def to_mecab(self, input_lines: list[str]) -> list[str]:
         output_lines = []
         for line in input_lines:
-            line = line.rstrip("\n")
             if line == "EOS":
-                output_lines.append("EOS\n")
+                output_lines.append("EOS")
                 continue
             elif line.startswith("@"):
                 continue
@@ -18,6 +17,6 @@ class Juman:
                 features = line.split()
                 midashi, yomi, genkei, hinshi1, _, hinshi2 = features[:6]
                 yomi = hira2kata(yomi)
-                line = f"{midashi}\t{hinshi1},{hinshi2},*,*,*,*,{genkei},{yomi},*\n"
+                line = f"{midashi}\t{hinshi1},{hinshi2},*,*,*,*,{genkei},{yomi},*"
                 output_lines.append(line)
         return output_lines

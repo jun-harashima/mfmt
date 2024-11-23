@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Callable
 
 import click
 
@@ -12,43 +13,33 @@ def main() -> None:
     pass
 
 
+def convert(input_txt: Path, function: Callable[[list[str]], list[str]]) -> None:
+    with open(input_txt) as file:
+        lines = file.read().splitlines()
+    lines = function(lines)
+    for line in lines:
+        print(line)
+
+
 @main.command()
 @click.argument("input-txt", type=click.Path(path_type=Path))
 def m2k(input_txt: Path) -> None:
-    with open(input_txt) as file:
-        lines = file.readlines()
-
     mecab = Mecab()
-    lines = mecab.to_kytea(lines)
-
-    for line in lines:
-        print(line)
+    convert(input_txt, mecab.to_kytea)
 
 
 @main.command()
 @click.argument("input-txt", type=click.Path(path_type=Path))
 def j2m(input_txt: Path) -> None:
-    with open(input_txt) as file:
-        lines = file.readlines()
-
     juman = Juman()
-    lines = juman.to_mecab(lines)
-
-    for line in lines:
-        print(line)
+    convert(input_txt, juman.to_mecab)
 
 
 @main.command()
 @click.argument("input-txt", type=click.Path(path_type=Path))
 def k2m(input_txt: Path) -> None:
-    with open(input_txt) as file:
-        lines = file.readlines()
-
     kytea = Kytea()
-    lines = kytea.to_mecab(lines)
-
-    for line in lines:
-        print(line)
+    convert(input_txt, kytea.to_mecab)
 
 
 if __name__ == "__main__":
