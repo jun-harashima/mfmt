@@ -11,7 +11,7 @@ class Kytea:
             for word in line.split():
                 midashi, hinshi, yomi = word.split("/")
                 yomi = hira2kata(yomi)
-                line = f"{midashi}\t{hinshi},*,*,*,*,*,*,{yomi},*\n"
+                line = f"{midashi}\t{hinshi},*,*,*,*,*,*,{yomi},*"
                 output_lines.append(line)
-            output_lines.append("EOS\n")
+            output_lines.append("EOS")
         return output_lines
