@@ -46,5 +46,12 @@ def k2m(input_txt: Path) -> None:
     kytea.to_mecab(input_txt)
 
 
+@main.command()
+@click.argument("input-txt", type=click.Path(path_type=Path))
+def k2j(input_txt: Path) -> None:
+    kytea = Kytea()
+    kytea.to_juman(input_txt)
+
+
 if __name__ == "__main__":
     main()
