@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Callable
 
 from jaconv import hira2kata
 
@@ -8,14 +9,27 @@ class Juman:
         pass
 
     def to_mecab(self, input_txt: Path) -> None:
+        self._convert(input_txt, self._to_mecab)
+
+    def to_kytea(self, input_txt: Path) -> None:
+        self._convert(input_txt, self._to_kytea)
+
+    def _convert(
+        self,
+        input_txt: Path,
+        _to_analyzer: Callable[[list[str]], list[str]],
+        print_eos: bool = True,
+    ) -> None:
         with open(input_txt) as file:
             lines: list[str] = []
             for line in file:
                 line = line.rstrip("\n")
                 if line == "EOS":
-                    output_lines = self._to_mecab(lines)
+                    output_lines = _to_analyzer(lines)
                     for output_line in output_lines:
                         print(output_line)
+                    lines = []
+                if print_eos:
                     print("EOS")
                 elif line.startswith("@"):
                     pass
@@ -31,29 +45,14 @@ class Juman:
             output_lines.append(line)
         return output_lines
 
-    def to_kytea(self, input_txt: Path) -> None:
-        with open(input_txt) as file:
-            lines: list[str] = []
-            for line in file:
-                line = line.rstrip("\n")
-                if line == "EOS":
-                    output_line = self._to_kytea(lines)
-                    print(output_line)
-                    lines = []
-                elif line.startswith("@"):
-                    pass
-                else:
-                    lines.append(line)
-
-    def _to_kytea(self, lines: list[str]) -> str:
+    def _to_kytea(self, lines: list[str]) -> list[str]:
         words = []
         for line in lines:
             midashi, hinshi1, _, yomi,_ = self._split(line)
             word = f"{midashi}/{hinshi1}/{yomi}"
             words.append(word)
         output_line = " ".join(words)
-        return output_line
-
+        return [output_line]
 
     def _split(self, line: str) -> tuple[str, str, str, str, str]:
         features = line.split()
