@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 from typing import Callable
 
@@ -6,7 +7,7 @@ from jaconv import hira2kata
 
 class Kytea:
     def __init__(self) -> None:
-        pass
+        self.split_pattern = re.compile(r"(?:[^\s]+?/[^\s]+?/[^\s]+)")
 
     def to_mecab(self, input_txt: Path) -> None:
         self._convert(input_txt, self._to_mecab)
@@ -29,7 +30,8 @@ class Kytea:
 
     def _to_mecab(self, line: str) -> list[str]:
         output_lines = []
-        for word in line.split():
+        words = self._split(line)
+        for word in words:
             midashi, hinshi, yomi = word.split("/")
             yomi = hira2kata(yomi)
             output_line = f"{midashi}\t{hinshi},*,*,*,*,*,*,{yomi},*"
@@ -38,8 +40,15 @@ class Kytea:
 
     def _to_juman(self, line: str) -> list[str]:
         output_lines = []
-        for word in line.split():
+        words = self._split(line)
+        for word in words:
             midashi, hinshi, yomi = word.split("/")
             output_line = f"{midashi} {yomi} * {hinshi} * * * * * * * *"
             output_lines.append(output_line)
         return output_lines
+
+    def _split(self, line: str) -> list[str]:
+        line = line.replace(r"\ ", "<space>")
+        words = self.split_pattern.findall(line)
+        words = [word.replace("<space>", r"\ ") for word in words]
+        return words
