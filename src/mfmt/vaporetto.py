@@ -15,13 +15,14 @@ class Vaporetto():
     def to_juman(self, input_txt: Path) -> None:
         self._convert(input_txt, self._to_juman)
 
-    # def to_kytea(self, input_txt: Path) -> None:
-    #     pass
+    def to_kytea(self, input_txt: Path) -> None:
+        self._convert(input_txt, self._to_kytea, print_eos=False)
 
     def _convert(
         self,
         input_txt: Path,
         _to_analyzer: Callable[[str], list[str]],
+        print_eos: bool = True,
     ) -> None:
         with open(input_txt) as file:
             for line in file:
@@ -29,7 +30,8 @@ class Vaporetto():
                 output_lines = _to_analyzer(line)
                 for output_line in output_lines:
                     print(output_line)
-                print("EOS")
+                if print_eos:
+                    print("EOS")
 
     def _to_mecab(self, line: str) -> list[str]:
         output_lines = []
@@ -65,6 +67,25 @@ class Vaporetto():
             output_line = f"{midashi} {kata2hira(yomi)} * {hinshi1} * {hinshi2} * * * * * *"  # noqa: E501
             output_lines.append(output_line)
         return output_lines
+
+    def _to_kytea(self, line: str) -> list[str]:
+        output_words = []
+        words = self._split(line)
+        for word in words:
+            # When processing English sentences, it may fail to predict the part of
+            # speech for some words. See test_vaporetto.py for details.
+            if "/" not in word:
+                continue
+            midashi, hinshi1, hinshi2, hinshi3, yomi = self._extract(word)
+            hinshi = "-".join([h for h in [hinshi1, hinshi2, hinshi3] if h != "*"])
+            yomi = kata2hira(yomi)
+            if yomi == "*":
+                output_word = f"{midashi}/{hinshi}"
+            else:
+                output_word = f"{midashi}/{hinshi}/{yomi}"
+            output_words.append(output_word)
+        output_line = " ".join(output_words)
+        return [output_line]
 
     def _extract(self, word: str) -> tuple[str, str, str, str, str]:
         features = word.split("/")

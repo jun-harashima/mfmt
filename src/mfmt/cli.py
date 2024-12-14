@@ -68,5 +68,12 @@ def v2j(input_txt: Path) -> None:
     vaporetto.to_juman(input_txt)
 
 
+@main.command()
+@click.argument("input-txt", type=click.Path(path_type=Path))
+def v2k(input_txt: Path) -> None:
+    vaporetto = Vaporetto()
+    vaporetto.to_kytea(input_txt)
+
+
 if __name__ == "__main__":
     main()

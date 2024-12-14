@@ -44,6 +44,14 @@ def test__to_juman(vaporetto: Vaporetto, lines: list[str]) -> None:
     assert actual == expected
 
 
+def test__to_kytea(vaporetto: Vaporetto, lines: list[str]) -> None:
+    actual = vaporetto._to_kytea(lines[0])
+    expected = [
+        "今日/名詞-普通名詞-副詞可能/きょう は/助詞-係助詞/は よい/形容詞-非自立可能/よい 天気/名詞-普通名詞-一般/てんき です/助動詞/です 。/補助記号-句点",  # noqa: E501
+    ]
+    assert actual == expected
+
+
 def test_split(vaporetto: Vaporetto, lines: list[str]) -> None:
     actual = vaporetto._split(lines[0])
     expected = [
