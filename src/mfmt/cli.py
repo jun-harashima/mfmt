@@ -5,6 +5,7 @@ import click
 from mfmt.juman import Juman
 from mfmt.kytea import Kytea
 from mfmt.mecab import Mecab
+from mfmt.vaporetto import Vaporetto
 
 
 @click.group()
@@ -51,6 +52,13 @@ def k2m(input_txt: Path) -> None:
 def k2j(input_txt: Path) -> None:
     kytea = Kytea()
     kytea.to_juman(input_txt)
+
+
+@main.command()
+@click.argument("input-txt", type=click.Path(path_type=Path))
+def v2m(input_txt: Path) -> None:
+    vaporetto = Vaporetto()
+    vaporetto.to_mecab(input_txt)
 
 
 if __name__ == "__main__":
