@@ -14,6 +14,9 @@ class Mecab:
     def to_kytea(self, input_txt: Path) -> None:
         self._convert(input_txt, self._to_kytea, print_eos=False)
 
+    def to_vaporetto(self, input_txt: Path) -> None:
+        self._convert(input_txt, self._to_vaporetto, print_eos=False)
+
     def _convert(
         self,
         input_txt: Path,
@@ -47,6 +50,18 @@ class Mecab:
         for line in lines:
             midashi, hinshi1, _, yomi = self._split(line)
             word = f"{midashi}/{hinshi1}/{yomi}"
+            words.append(word)
+        output_line = " ".join(words)
+        return [output_line]
+
+    def _to_vaporetto(self, lines: list[str]) -> list[str]:
+        words = []
+        for line in lines:
+            midashi, hinshi1, hinshi2, yomi = self._split(line)
+            if hinshi2 == "*":
+                word = f"{midashi}/{hinshi1}/{yomi}"
+            else:
+                word = f"{midashi}/{hinshi1}-{hinshi2}/{yomi}"
             words.append(word)
         output_line = " ".join(words)
         return [output_line]
