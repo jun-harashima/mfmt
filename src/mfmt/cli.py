@@ -71,6 +71,13 @@ def k2j(input_txt: Path) -> None:
 
 @main.command()
 @click.argument("input-txt", type=click.Path(path_type=Path))
+def k2v(input_txt: Path) -> None:
+    kytea = Kytea()
+    kytea.to_vaporetto(input_txt)
+
+
+@main.command()
+@click.argument("input-txt", type=click.Path(path_type=Path))
 def v2m(input_txt: Path) -> None:
     vaporetto = Vaporetto()
     vaporetto.to_mecab(input_txt)
