@@ -43,6 +43,14 @@ def test__to_kytea(mecab: Mecab, lines: list[str]) -> None:
     assert actual == expected
 
 
+def test__to_vaporetto(mecab: Mecab, lines: list[str]) -> None:
+    actual = mecab._to_vaporetto(lines)
+    expected = [
+        "今日/名詞-副詞可能/きょう は/助詞-係助詞/は よい/形容詞-自立/よい 天気/名詞-一般/てんき です/助動詞/です 。/記号-句点/。",  # noqa: E501
+    ]
+    assert actual == expected
+
+
 def test__split(mecab: Mecab, lines: list[str]) -> None:
     actual = mecab._split(lines[0])
     expected = ("今日", "名詞", "副詞可能", "きょう")

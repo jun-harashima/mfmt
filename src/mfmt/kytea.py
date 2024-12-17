@@ -15,6 +15,9 @@ class Kytea:
     def to_juman(self, input_txt: Path) -> None:
         self._convert(input_txt, self._to_juman)
 
+    def to_vaporetto(self, input_txt: Path) -> None:
+        self._convert(input_txt, self._to_vaporetto)
+
     def _convert(
         self,
         input_txt: Path,
@@ -46,6 +49,9 @@ class Kytea:
             output_line = f"{midashi} {yomi} * {hinshi} * * * * * * * *"
             output_lines.append(output_line)
         return output_lines
+
+    def _to_vaporetto(self, line: str) -> list[str]:
+        return [line]
 
     def _split(self, line: str) -> list[str]:
         line = line.replace(r"\ ", "<space>")

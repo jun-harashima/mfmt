@@ -48,6 +48,14 @@ def test__to_juman(kytea: Kytea, lines: list[str]) -> None:
     assert actual == expected
 
 
+def test__to_vaporetto(kytea: Kytea, lines: list[str]) -> None:
+    actual = kytea._to_vaporetto(lines[0])
+    expected = [
+        "今日/名詞/きょう は/助詞/は よ/形容詞/よ い/語尾/い 天気/名詞/てんき で/助動詞/で す/語尾/す 。/補助記号/。",  # noqa: E501
+    ]
+    assert actual == expected
+
+
 def test_split(kytea: Kytea, lines: list[str]) -> None:
     actual = kytea._split(lines[0])
     expected = [

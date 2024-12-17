@@ -14,6 +14,9 @@ class Juman:
     def to_kytea(self, input_txt: Path) -> None:
         self._convert(input_txt, self._to_kytea)
 
+    def to_vaporetto(self, input_txt: Path) -> None:
+        self._convert(input_txt, self._to_vaporetto)
+
     def _convert(
         self,
         input_txt: Path,
@@ -48,8 +51,20 @@ class Juman:
     def _to_kytea(self, lines: list[str]) -> list[str]:
         words = []
         for line in lines:
-            midashi, hinshi1, _, yomi,_ = self._split(line)
+            midashi, hinshi1, _, yomi, _ = self._split(line)
             word = f"{midashi}/{hinshi1}/{yomi}"
+            words.append(word)
+        output_line = " ".join(words)
+        return [output_line]
+
+    def _to_vaporetto(self, lines: list[str]) -> list[str]:
+        words = []
+        for line in lines:
+            midashi, hinshi1, hinshi2, yomi, _ = self._split(line)
+            if hinshi2 == "*":
+                word = f"{midashi}/{hinshi1}/{yomi}"
+            else:
+                word = f"{midashi}/{hinshi1}-{hinshi2}/{yomi}"
             words.append(word)
         output_line = " ".join(words)
         return [output_line]
