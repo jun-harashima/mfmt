@@ -5,6 +5,7 @@ mfmt (pronounced "em-format") is a tool for converting the output format of one 
 - [MeCab](https://taku910.github.io/mecab/)
 - [Juman](https://nlp.ist.i.kyoto-u.ac.jp/?JUMAN) ([Juman++](https://nlp.ist.i.kyoto-u.ac.jp/?JUMAN%2B%2B))
 - [KyTea](https://www.phontron.com/kytea/index-ja.html)
+- [Vaporetto](https://github.com/daac-tools/vaporetto) (bccwj-suw+unidic_pos+kana)
 
 ## Install
 
@@ -23,6 +24,7 @@ $ mfmt <command> <file>
 - m: MeCab
 - j: Juman (Juman++)
 - k: KyTea
+- v: Vaporetto
 
 For example, to convert the output format from MeCab to Juman:
 
