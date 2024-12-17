@@ -50,6 +50,13 @@ def j2k(input_txt: Path) -> None:
 
 @main.command()
 @click.argument("input-txt", type=click.Path(path_type=Path))
+def j2v(input_txt: Path) -> None:
+    juman = Juman()
+    juman.to_vaporetto(input_txt)
+
+
+@main.command()
+@click.argument("input-txt", type=click.Path(path_type=Path))
 def k2m(input_txt: Path) -> None:
     kytea = Kytea()
     kytea.to_mecab(input_txt)
